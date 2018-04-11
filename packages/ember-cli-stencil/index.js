@@ -4,10 +4,9 @@ const path = require('path');
 
 const MergeTree = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
+const debug = require('debug');
 
-function isStencilCollection(pkg) {
-  return Boolean(pkg.collection);
-}
+const StencilCollection = require('./lib/stencil-collection');
 
 module.exports = {
   name: 'ember-cli-stencil',
@@ -22,32 +21,42 @@ module.exports = {
   included() {
     this._super.included.apply(this, arguments);
 
+    const logDiscovery = debug(`${this.name}:discovery`);
+
     this.stencilCollections = this.getParentDependencies()
       .map(dep => this.addonDiscovery.resolvePackage(this.parent.root, dep))
-      .reduce((acc, dep) => {
-        const packagePath = path.join(dep, 'package.json');
+      .reduce((acc, pathToDep) => {
+        const packagePath = path.join(pathToDep, 'package.json');
         const pkg = require(packagePath);
 
-        if (isStencilCollection(pkg)) {
-          acc[dep] = pkg;
+        if (StencilCollection.looksLike(pkg)) {
+          logDiscovery(
+            'found Stencil collection %o at %o',
+            pkg.name,
+            pathToDep
+          );
+          acc.push(new StencilCollection(pkg, pathToDep));
+        } else {
+          logDiscovery(
+            'package %o does not seem to be a Stencil collection',
+            pkg.name
+          );
         }
 
         return acc;
-      }, {});
+      }, []);
 
-    Object.keys(this.stencilCollections).forEach(dep => {
-      const pkg = this.stencilCollections[dep];
-
-      this.import(`vendor/${pkg.browser}`);
+    const logVendor = debug(`${this.name}:vendor`);
+    this.stencilCollections.forEach(dep => {
+      logVendor('importing browser file for %o at %o', dep.name, dep.browser);
+      this.import(`vendor/${dep.browser}`);
     });
   },
 
   treeForVendor(tree) {
-    const collectionTrees = Object.keys(this.stencilCollections).map(dep => {
-      const pkg = this.stencilCollections[dep];
-
-      return new Funnel(dep, {
-        files: [pkg.browser]
+    const collectionTrees = this.stencilCollections.map(dep => {
+      return new Funnel(dep.path, {
+        files: [dep.browser]
       });
     });
 
@@ -55,13 +64,12 @@ module.exports = {
   },
 
   treeForPublic() {
-    const collectionTrees = Object.keys(this.stencilCollections).map(dep => {
-      const pkg = this.stencilCollections[dep];
-      const { dir, name } = path.parse(path.join(dep, pkg.browser));
-      const publicFilesDir = path.join(dir, name);
+    const log = debug(`${this.name}:public`);
+    const collectionTrees = this.stencilCollections.map(dep => {
+      log('copying files for %o at %o', dep.name, dep.publicFilesDir);
 
-      return new Funnel(publicFilesDir, {
-        destDir: `assets/${name}`
+      return new Funnel(dep.publicFilesDir, {
+        destDir: `assets/${dep.namespace}`
       });
     });
 

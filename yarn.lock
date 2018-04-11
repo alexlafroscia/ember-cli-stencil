@@ -2577,12 +2577,6 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-ember-ajax@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/ember-ajax/-/ember-ajax-3.1.0.tgz#3db36e67357ef447639517656aeac4bb13e73a9c"
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
 ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1:
   version "6.12.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.12.0.tgz#3adcdbe1278da1fcd0b9038f1360cb4ac5d4414c"
