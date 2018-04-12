@@ -2,11 +2,16 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render } from '@ember/test-helpers';
 import nextRAF from 'ember-cli-stencil/test-support/raf';
+import componentDefined from 'ember-cli-stencil/test-support/component-defined';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
 
 module('passing props', function(hooks) {
   setupRenderingTest(hooks);
+
+  hooks.beforeEach(async function() {
+    await componentDefined('demo-passing-props');
+  });
 
   test('passing a string into a property', async function(assert) {
     await render(hbs`<demo-passing-props text="Foobar"></demo-passing-props>`);
