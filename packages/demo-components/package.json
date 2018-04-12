@@ -1,6 +1,6 @@
 {
   "name": "demo-components",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Stencil Component Starter",
   "main": "dist/demo.js",
   "types": "dist/types/index.d.ts",
@@ -16,7 +16,6 @@
     "serve": "stencil-dev-server",
     "start": "npm run dev"
   },
-  "dependencies": {},
   "devDependencies": {
     "@stencil/core": "0.7.7",
     "@stencil/dev-server": "latest",
