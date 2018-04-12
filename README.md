@@ -1,6 +1,8 @@
 ember-cli-stencil
 =================================================================================
 
+[![Build Status](https://travis-ci.org/alexlafroscia/ember-cli-stencil.svg?branch=master)](https://travis-ci.org/alexlafroscia/ember-cli-stencil)
+
 > Automatic discovery of [Stencil.js][stencil] components for your Ember application
 
 Stencil provides a great, opinionated process for defining Web Components
