@@ -1,24 +1,20 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render } from '@ember/test-helpers';
-import nextRAF from 'ember-cli-stencil/test-support/raf';
-import componentDefined from 'ember-cli-stencil/test-support/component-defined';
+import { getShadowRoot, nextRAF } from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
 
 module('passing props', function(hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(async function() {
-    await componentDefined('demo-passing-props');
-  });
-
   test('passing a string into a property', async function(assert) {
     await render(hbs`<demo-passing-props text="Foobar"></demo-passing-props>`);
 
     const el = await find('demo-passing-props');
+    const shadowRoot = await getShadowRoot(el);
 
-    assert.equal(el.shadowRoot.textContent, 'Foobar');
+    assert.equal(shadowRoot.textContent, 'Foobar');
   });
 
   test('passing a dynamic property into a component', async function(assert) {
@@ -28,17 +24,14 @@ module('passing props', function(hooks) {
     `);
 
     const el = await find('demo-passing-props');
+    const shadowRoot = await getShadowRoot(el);
 
-    assert.equal(el.shadowRoot.textContent, 'foo', 'Has the initial text');
+    assert.equal(shadowRoot.textContent, 'foo', 'Has the initial text');
 
     this.set('text', 'bar');
     await nextRAF();
 
-    assert.equal(
-      el.shadowRoot.textContent,
-      'bar',
-      'Has the updated text value'
-    );
+    assert.equal(shadowRoot.textContent, 'bar', 'Has the updated text value');
   });
 
   test('passing a function as a property', async function(assert) {
@@ -49,7 +42,8 @@ module('passing props', function(hooks) {
     `);
 
     const el = await find('demo-passing-props');
-    const button = el.shadowRoot.querySelector('button');
+    const shadowRoot = await getShadowRoot(el);
+    const button = shadowRoot.querySelector('button');
 
     await click(button);
 
