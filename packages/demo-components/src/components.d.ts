@@ -50,4 +50,33 @@ declare global {
   }
 }
 
+
+declare global {
+  interface HTMLDemoPassingPropsElement extends HTMLStencilElement {
+    'action': Function;
+    'text': string;
+  }
+  var HTMLDemoPassingPropsElement: {
+    prototype: HTMLDemoPassingPropsElement;
+    new (): HTMLDemoPassingPropsElement;
+  };
+  interface HTMLElementTagNameMap {
+    'demo-passing-props': HTMLDemoPassingPropsElement;
+  }
+  interface ElementTagNameMap {
+    'demo-passing-props': HTMLDemoPassingPropsElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'demo-passing-props': JSXElements.DemoPassingPropsAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DemoPassingPropsAttributes extends HTMLAttributes {
+      'action'?: Function;
+      'text'?: string;
+    }
+  }
+}
+
 declare global { namespace JSX { interface StencilJSX {} } }

@@ -9,7 +9,9 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "lerna run test"
+    "lint": "lerna run lint",
+    "pretest": "lerna run --scope demo-components build",
+    "test": "lerna run --scope ember-cli-stencil test"
   },
   "devDependencies": {
     "lerna": "^2.10.1"
