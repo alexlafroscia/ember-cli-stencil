@@ -16,16 +16,16 @@ up all of that boilerplate so that your custom elements "just work".
 Installation
 ---------------------------------------------------------------------------------
 
-TBD
+Start by installing your Stencil components as `npm` modules, as described in the
+[distribution instructions][distribution] instructions in the guide. Then, install
+this addon:
 
-Usage
----------------------------------------------------------------------------------
+```bash
+ember install ember-cli-stencil
+```
 
-`ember-cli-stencil` automatically find Stencil collections in your `package.json`
-dependencies (and `devDependencies` for addons) and includes them in your
-application. With your Stencil collection and this addon installed, you should be
-able to start using Stencil-authored WebComponents in your Ember app with no
-additional configuration.
+That's it! Your Stencil components will automatically be detected by the addon
+and pulled into your application.
 
 Debugging
 ---------------------------------------------------------------------------------
@@ -45,4 +45,5 @@ If there are any issues around judging a file to be a Stencil collection
 incorrectly or importing the wrong files, please [file an issue][issues].
 
 [stencil]: https://stenciljs.com/
+[distribution]: https://stenciljs.com/docs/distribution
 [issues]: https://github.com/alexlafroscia/ember-cli-stencil/issues
