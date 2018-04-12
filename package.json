@@ -1,7 +1,5 @@
 {
   "name": "ember-cli-stencil",
-  "version": "0.0.1",
-  "description": "Addon for working with Stencil.js components in Ember",
   "author": "Alex LaFroscia <alex@lafroscia.com>",
   "license": "MIT",
   "private": true,

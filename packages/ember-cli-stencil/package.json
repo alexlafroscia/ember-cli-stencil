@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-stencil",
   "version": "0.1.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Addon for working with Stencil.js components in Ember",
   "keywords": [
     "ember-addon"
   ],
@@ -16,7 +16,9 @@
     "build": "ember build",
     "lint": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "prepublish": "cp ../../README.md .",
+    "postpublish": "rm README.md"
   },
   "dependencies": {
     "broccoli-funnel": "^2.0.1",
