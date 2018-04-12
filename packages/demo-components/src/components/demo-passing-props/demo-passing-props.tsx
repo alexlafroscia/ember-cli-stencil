@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 
 @Component({
   tag: 'demo-passing-props',
@@ -7,11 +7,6 @@ import { Component, Prop, Watch } from '@stencil/core';
 export class DemoEventEmitter {
   @Prop() text: string;
   @Prop() action: Function;
-
-  @Watch('text')
-  textDidChange() {
-    debugger;
-  }
 
   render() {
     return (
