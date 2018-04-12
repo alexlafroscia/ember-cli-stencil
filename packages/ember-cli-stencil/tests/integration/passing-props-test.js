@@ -1,7 +1,11 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render } from '@ember/test-helpers';
-import { getShadowRoot, nextRAF } from 'ember-cli-stencil/test-support';
+import {
+  findInShadowRoot,
+  getShadowRoot,
+  nextRAF
+} from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
 
@@ -42,8 +46,7 @@ module('passing props', function(hooks) {
     `);
 
     const el = await find('demo-passing-props');
-    const shadowRoot = await getShadowRoot(el);
-    const button = shadowRoot.querySelector('button');
+    const button = await findInShadowRoot(el, 'button');
 
     await click(button);
 
