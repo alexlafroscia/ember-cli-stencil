@@ -30,6 +30,7 @@ module.exports = {
         'testem.js',
         'config/**/*.js',
         'lib/**/*.js',
+        'scripts/**/*.js',
         'tests/dummy/config/**/*.js'
       ],
       excludedFiles: [

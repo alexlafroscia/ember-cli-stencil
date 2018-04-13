@@ -21,9 +21,8 @@
     "postpublish": "rm README.md"
   },
   "dependencies": {
-    "broccoli-funnel": "^2.0.1",
-    "broccoli-merge-trees": "^3.0.0",
     "debug": "^3.1.0",
+    "ember-blueprint-jscodeshift": "^0.3.0",
     "ember-cli-babel": "^6.6.0"
   },
   "devDependencies": {
