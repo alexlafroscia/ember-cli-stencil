@@ -1,6 +1,6 @@
 {
   "name": "demo-components",
-  "version": "0.1.2",
+  "version": "0.2.0-beta.0",
   "description": "Stencil Component Starter",
   "main": "dist/demo.js",
   "types": "dist/types/index.d.ts",
