@@ -9,5 +9,10 @@ module.exports = withTransform({
     return '';
   },
 
-  transforms: ['../../lib/transforms/install-custom-events.js']
+  transforms: [
+    {
+      match: 'app/app.js',
+      transform: '../../lib/transforms/install-custom-events.js'
+    }
+  ]
 });

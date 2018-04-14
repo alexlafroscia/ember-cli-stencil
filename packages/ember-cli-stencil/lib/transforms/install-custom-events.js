@@ -1,16 +1,8 @@
-const path = require('path');
 const debug = require('debug')('ember-cli-stencil:install-custom-events');
 
 const CUSTOM_EVENTS_MIXIN = 'ember-cli-stencil/custom-events';
 
 module.exports = function(fileInfo, api) {
-  const info = path.parse(fileInfo.path);
-
-  if (info.base !== 'app.js') {
-    debug("%o isn't a file that needs modification", fileInfo.path);
-    return fileInfo.source;
-  }
-
   if (fileInfo.source.includes(CUSTOM_EVENTS_MIXIN)) {
     debug('%o already seems to have the mixin applied', fileInfo.path);
     return fileInfo.source;

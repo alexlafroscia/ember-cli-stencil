@@ -17,12 +17,13 @@
     "lint": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
     "test": "ember test",
-    "prepublish": "cp ../../README.md .",
-    "postpublish": "rm README.md"
+    "prepublishOnly": "cp ../../README.md .",
+    "postpublish": "rm README.md",
+    "release": "standard-version"
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "ember-blueprint-jscodeshift": "^0.3.0",
+    "ember-blueprint-jscodeshift": "^1.0.0",
     "ember-cli-babel": "^6.6.0"
   },
   "devDependencies": {
@@ -52,7 +53,8 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
     "loader.js": "^4.2.3",
-    "prettier": "^1.11.1"
+    "prettier": "^1.11.1",
+    "standard-version": "^4.3.0"
   },
   "engines": {
     "node": "6.* || >= 7.*"
