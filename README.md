@@ -20,6 +20,11 @@ ember install ember-cli-stencil
 
 That's it! Your Stencil components will automatically be detected by the addon and pulled into your application.
 
+Features
+--------------------------------------------------------------------------------
+
+- [Generating Ember component wrappers][https://github.com/alexlafroscia/ember-cli-stencil/wiki/Ember-component-wrappers]
+
 Debugging
 --------------------------------------------------------------------------------
 

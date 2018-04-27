@@ -4,12 +4,25 @@ const path = require('path');
 
 const MergeTree = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
+const writeFile = require('broccoli-file-creator');
 const debug = require('debug');
 
 const StencilCollection = require('./lib/stencil-collection');
 
 module.exports = {
   name: 'ember-cli-stencil',
+
+  addonOptions() {
+    const config =
+      (this.parent && this.parent.options) ||
+      (this.app && this.app.options) ||
+      {};
+
+    return Object.assign(
+      { generateWrapperComponents: true },
+      config['ember-cli-stencil']
+    );
+  },
 
   // Get the parent's dependencies, including `devDependencies` for Ember addons
   getParentDependencies() {
@@ -51,6 +64,35 @@ module.exports = {
       logVendor('importing browser file for %o at %o', dep.name, dep.browser);
       this.import(`vendor/${dep.browser}`);
     });
+  },
+
+  treeForApp(tree) {
+    if (!this.addonOptions().generateWrapperComponents) {
+      return tree;
+    }
+
+    const generatedComponents = this.stencilCollections.reduce((acc, dep) => {
+      return [
+        ...acc,
+        ...dep.collection.components.map(component => {
+          const props = component.props;
+          const events = component.events;
+
+          return writeFile(
+            `components/${component.tag}.js`,
+            `
+              import generateComponent from 'ember-cli-stencil/-private/generate-component';
+
+              export default generateComponent('${
+                component.tag
+              }', ${JSON.stringify(props)}, ${JSON.stringify(events)});
+            `
+          );
+        })
+      ];
+    }, []);
+
+    return new MergeTree([tree, ...generatedComponents]);
   },
 
   treeForVendor(tree) {

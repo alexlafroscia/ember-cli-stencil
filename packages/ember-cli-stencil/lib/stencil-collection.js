@@ -1,5 +1,7 @@
 const path = require('path');
 
+const COLLECTION = Symbol();
+
 class StencilCollection {
   constructor(pkg, path) {
     this.pkg = pkg;
@@ -22,6 +24,19 @@ class StencilCollection {
     const { dir } = path.parse(path.join(this.path, this.browser));
 
     return path.join(dir, this.namespace);
+  }
+
+  get collection() {
+    if (this[COLLECTION]) {
+      return this[COLLECTION];
+    }
+
+    const collectionPath = this.pkg.collection;
+    const collection = require(path.join(this.path, collectionPath));
+
+    this[COLLECTION] = collection;
+
+    return collection;
   }
 
   /**
