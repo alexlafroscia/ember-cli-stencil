@@ -79,4 +79,31 @@ declare global {
   }
 }
 
+
+declare global {
+  interface HTMLDemoRichPropsElement extends HTMLStencilElement {
+    'list': Array<string>;
+  }
+  var HTMLDemoRichPropsElement: {
+    prototype: HTMLDemoRichPropsElement;
+    new (): HTMLDemoRichPropsElement;
+  };
+  interface HTMLElementTagNameMap {
+    'demo-rich-props': HTMLDemoRichPropsElement;
+  }
+  interface ElementTagNameMap {
+    'demo-rich-props': HTMLDemoRichPropsElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'demo-rich-props': JSXElements.DemoRichPropsAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface DemoRichPropsAttributes extends HTMLAttributes {
+      'list'?: Array<string>;
+    }
+  }
+}
+
 declare global { namespace JSX { interface StencilJSX {} } }

@@ -16,6 +16,7 @@ module('generating ember components', function(hooks) {
     await render(hbs`
       {{demo-passing-props}}
       {{demo-event-emitter}}
+      {{demo-rich-props}}
     `);
 
     assert.dom('demo-passing-props').exists();
@@ -32,22 +33,42 @@ module('generating ember components', function(hooks) {
     assert.dom('demo-event-emitter').hasText('Click me!');
   });
 
-  test('passing properties to the underlying element', async function(assert) {
-    this.set('text', 'foo');
+  module('passing properties to the underlying element', function() {
+    test('binding basic props', async function(assert) {
+      this.set('text', 'foo');
 
-    await render(hbs`
-      {{demo-passing-props text=text}}
-    `);
+      await render(hbs`
+        {{demo-passing-props text=text}}
+      `);
 
-    const el = await find('demo-passing-props');
-    const shadowRoot = await getShadowRoot(el);
+      const el = await find('demo-passing-props');
+      const shadowRoot = await getShadowRoot(el);
 
-    assert.equal(shadowRoot.textContent, 'foo', 'Has the initial text');
+      assert.equal(shadowRoot.textContent, 'foo', 'Has the initial text');
 
-    this.set('text', 'bar');
-    await nextRAF();
+      this.set('text', 'bar');
+      await nextRAF();
 
-    assert.equal(shadowRoot.textContent, 'bar', 'Has the updated text value');
+      assert.equal(shadowRoot.textContent, 'bar', 'Has the updated text value');
+    });
+
+    test('binding complex props', async function(assert) {
+      this.set('list', ['foo', 'bar']);
+
+      await render(hbs`
+        {{demo-rich-props list=list}}
+      `);
+
+      const el = await find('demo-rich-props');
+      const shadowRoot = await getShadowRoot(el);
+
+      assert.equal(shadowRoot.textContent, 'foobar');
+
+      this.set('list', ['foo', 'bar', 'baz']);
+      await nextRAF();
+
+      assert.equal(shadowRoot.textContent, 'foobarbaz');
+    });
   });
 
   module('event listeners', function() {
