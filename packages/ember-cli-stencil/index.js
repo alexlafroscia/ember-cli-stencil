@@ -49,11 +49,6 @@ module.exports = {
             pathToDep
           );
           acc.push(new StencilCollection(pkg, pathToDep));
-        } else {
-          logDiscovery(
-            'package %o does not seem to be a Stencil collection',
-            pkg.name
-          );
         }
 
         return acc;
@@ -67,7 +62,12 @@ module.exports = {
   },
 
   treeForApp(tree) {
-    if (!this.addonOptions().generateWrapperComponents) {
+    const log = debug(`${this.name}:app`);
+    const config = this.addonOptions();
+
+    if (!config.generateWrapperComponents) {
+      log('configuration disabled generating wrapper components: %o', config);
+
       return tree;
     }
 
@@ -75,6 +75,8 @@ module.exports = {
       return [
         ...acc,
         ...dep.collection.components.map(component => {
+          log('generating component %o from %o', component.tag, dep.name);
+
           const props = component.props;
           const events = component.events;
 
@@ -108,7 +110,7 @@ module.exports = {
   treeForPublic() {
     const log = debug(`${this.name}:public`);
     const collectionTrees = this.stencilCollections.map(dep => {
-      log('copying files for %o at %o', dep.name, dep.publicFilesDir);
+      log('copying files from %o at %o', dep.name, dep.publicFilesDir);
 
       return new Funnel(dep.publicFilesDir, {
         destDir: `assets/${dep.namespace}`
