@@ -23,7 +23,7 @@ That's it! Your Stencil components will automatically be detected by the addon a
 Features
 --------------------------------------------------------------------------------
 
-- [Generating Ember component wrappers][https://github.com/alexlafroscia/ember-cli-stencil/wiki/Ember-component-wrappers]
+- [Generating Ember component wrappers](https://github.com/alexlafroscia/ember-cli-stencil/wiki/Ember-component-wrappers)
 
 Debugging
 --------------------------------------------------------------------------------
