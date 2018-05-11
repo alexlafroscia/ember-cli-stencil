@@ -11,7 +11,16 @@
     "pretest": "lerna run --scope demo-components build",
     "test": "lerna run --scope ember-cli-stencil test"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $GIT_PARAMS"
+    }
+  },
   "devDependencies": {
+    "@commitlint/cli": "^6.2.0",
+    "@commitlint/config-conventional": "^6.1.3",
+    "@commitlint/travis-cli": "^6.2.0",
+    "husky": "^1.0.0-rc.4",
     "lerna": "^2.10.1"
   }
 }
