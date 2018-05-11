@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-stencil",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Addon for working with Stencil.js components in Ember",
   "keywords": [
     "ember-addon"
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
-    "demo-components": "^0.2.0",
+    "demo-components": "^0.3.0",
     "ember-cli": "~3.1.4",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
