@@ -39,6 +39,18 @@ class StencilCollection {
     return collection;
   }
 
+  get manifest() {
+    const collectionPath = this.pkg.collection;
+
+    return require(path.join(this.path, collectionPath));
+  }
+
+  get allEvents() {
+    return this.manifest.components
+      .map(component => component.events || [])
+      .reduce((acc, events) => [...acc, ...events]);
+  }
+
   /**
    * Determine if the package looks like a Stencil collection
    * @param {object} pkg the package.json for a dependency

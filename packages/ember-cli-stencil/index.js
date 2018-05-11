@@ -8,6 +8,7 @@ const writeFile = require('broccoli-file-creator');
 const debug = require('debug');
 
 const StencilCollection = require('./lib/stencil-collection');
+const customEventsMixin = require('./lib/broccoli/dynamically-create-mixin');
 
 module.exports = {
   name: 'ember-cli-stencil',
@@ -19,7 +20,10 @@ module.exports = {
       {};
 
     return Object.assign(
-      { generateWrapperComponents: true },
+      {
+        generateWrapperComponents: true,
+        generateCustomEventsMixin: true
+      },
       config['ember-cli-stencil']
     );
   },
@@ -59,6 +63,21 @@ module.exports = {
       logVendor('importing browser file for %o at %o', dep.name, dep.browser);
       this.import(`vendor/${dep.browser}`);
     });
+  },
+
+  treeForAddon(tree) {
+    const config = this.addonOptions();
+
+    if (config.generateCustomEventsMixin) {
+      const merged = new MergeTree([
+        tree,
+        customEventsMixin(this.stencilCollections)
+      ]);
+
+      return this._super.treeForAddon.call(this, merged);
+    }
+
+    return tree;
   },
 
   treeForApp(tree) {

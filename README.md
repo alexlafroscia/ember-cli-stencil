@@ -24,6 +24,7 @@ Features
 --------------------------------------------------------------------------------
 
 - [Generating Ember component wrappers](https://github.com/alexlafroscia/ember-cli-stencil/wiki/Ember-component-wrappers)
+- [Custom Events support](https://github.com/alexlafroscia/ember-cli-stencil/wiki/Custom-Events)
 
 Debugging
 --------------------------------------------------------------------------------

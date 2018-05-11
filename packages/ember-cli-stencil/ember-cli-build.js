@@ -5,7 +5,8 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function(defaults) {
   let app = new EmberAddon(defaults, {
     'ember-cli-stencil': {
-      generateWrapperComponents: true
+      generateWrapperComponents: true,
+      generateCustomEventsMixin: true
     }
   });
 
