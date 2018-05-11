@@ -87,6 +87,28 @@ module('generating ember components', function(hooks) {
       assert.verify(this.handleDemoEvent(td.matchers.isA(CustomEvent)));
     });
 
+    test('can access the value emitted from the Stencil component', async function(assert) {
+      this.handleDemoEvent = td.function('handler');
+
+      await render(hbs`
+        {{demo-event-emitter onDemoEvent=(action handleDemoEvent)}}
+      `);
+
+      const el = await find('demo-event-emitter');
+      const button = await findInShadowRoot(el, 'button');
+
+      await click(button);
+
+      assert.verify(
+        this.handleDemoEvent(
+          td.matchers.argThat(event => {
+            // Event emitted with `{ foo: 'bar' }`
+            return event.detail.foo === 'bar';
+          })
+        )
+      );
+    });
+
     test('it removes the event listeners when the component is destroyed', async function(assert) {
       this.handleDemoEvent = td.function('handler');
 

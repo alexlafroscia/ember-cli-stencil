@@ -9,7 +9,7 @@ export class DemoEventEmitter {
 
   render() {
     return (
-      <button onClick={() => this.demoEvent.emit()}>
+      <button onClick={() => this.demoEvent.emit({ foo: 'bar' })}>
         <slot />
       </button>
     );
