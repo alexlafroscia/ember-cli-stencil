@@ -2,9 +2,7 @@
   "name": "ember-cli-stencil",
   "version": "0.3.0",
   "description": "Addon for working with Stencil.js components in Ember",
-  "keywords": [
-    "ember-addon"
-  ],
+  "keywords": ["ember-addon"],
   "license": "MIT",
   "author": "",
   "directories": {
@@ -14,7 +12,8 @@
   "repository": "",
   "scripts": {
     "build": "ember build",
-    "lint": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
+    "lint":
+      "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
     "test": "ember test",
     "test:all": "ember try:each",
@@ -51,11 +50,11 @@
     "ember-source-channel-url": "^1.1.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-ember": "^5.0.0",
+    "eslint-plugin-ember": "^5.2.0",
     "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "loader.js": "^4.7.0",
-    "prettier": "^1.11.1",
+    "prettier": "^1.13.7",
     "qunit-dom": "^0.6.2"
   },
   "engines": {
