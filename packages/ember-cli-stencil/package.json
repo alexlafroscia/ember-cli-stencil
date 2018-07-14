@@ -2,7 +2,9 @@
   "name": "ember-cli-stencil",
   "version": "0.3.0",
   "description": "Addon for working with Stencil.js components in Ember",
-  "keywords": ["ember-addon"],
+  "keywords": [
+    "ember-addon"
+  ],
   "license": "MIT",
   "author": "",
   "directories": {
@@ -12,8 +14,7 @@
   "repository": "",
   "scripts": {
     "build": "ember build",
-    "lint":
-      "eslint ./*.js addon addon-test-support app config lib server test-support tests",
+    "lint": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
     "test": "ember test",
     "test:all": "ember try:each",
@@ -25,6 +26,7 @@
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^3.0.0",
     "debug": "^3.1.0",
+    "ember-auto-import": "^1.2.5",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^2.0.1"
   },
