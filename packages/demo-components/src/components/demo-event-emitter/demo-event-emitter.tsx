@@ -1,7 +1,7 @@
-import { Component, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter } from "@stencil/core";
 
 @Component({
-  tag: 'demo-event-emitter',
+  tag: "demo-event-emitter",
   shadow: true
 })
 export class DemoEventEmitter {
@@ -9,7 +9,7 @@ export class DemoEventEmitter {
 
   render() {
     return (
-      <button onClick={() => this.demoEvent.emit({ foo: 'bar' })}>
+      <button onClick={() => this.demoEvent.emit({ foo: "bar" })}>
         <slot />
       </button>
     );
