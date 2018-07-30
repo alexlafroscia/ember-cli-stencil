@@ -1,1 +1,12 @@
-<demo-passing-props text="Foobar"></demo-passing-props>
+<h1>Components</h1>
+
+<h2>Passing Props</h2>
+
+<demo-passing-props text="Action passed as a property" action={{action 'sayHello'}}>
+</demo-passing-props>
+
+<h2>Binding to an Event</h2>
+
+<demo-event-emitter {{action 'sayHello' on='demoEvent'}}>
+  Action bound to an event
+</demo-event-emitter>
