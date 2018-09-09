@@ -2,6 +2,8 @@ ember-cli-stencil
 ================================================================================
 
 [![Build Status](https://travis-ci.org/alexlafroscia/ember-cli-stencil.svg?branch=master)](https://travis-ci.org/alexlafroscia/ember-cli-stencil)
+[![NPM Version](https://badgen.net/npm/v/ember-cli-stencil)](https://www.npmjs.com/package/ember-cli-stencil)
+[![Stencil Compatibility](https://badgen.net/badge/stencil/^0.12.4?label=%40stencil%2Fcore)](https://stenciljs.com)
 
 > Automatic discovery of [Stencil.js][stencil] components for your Ember application
 
