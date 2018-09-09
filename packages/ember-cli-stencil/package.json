@@ -16,7 +16,7 @@
     "build": "ember build",
     "lint": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember serve",
-    "test": "ember test",
+    "test": "ember test && ava tests-node",
     "test:all": "ember try:each",
     "prepublishOnly": "cp ../../README.md .",
     "postpublish": "rm README.md"
@@ -28,9 +28,12 @@
     "debug": "^3.1.0",
     "ember-auto-import": "^1.2.5",
     "ember-cli-babel": "^6.6.0",
-    "ember-cli-htmlbars": "^2.0.1"
+    "ember-cli-htmlbars": "^2.0.1",
+    "lodash": "^4.17.10",
+    "theredoc": "^1.0.0"
   },
   "devDependencies": {
+    "ava": "1.0.0-beta.8",
     "broccoli-asset-rev": "^2.4.5",
     "demo-components": "^0.3.0",
     "ember-cli": "~3.1.4",
