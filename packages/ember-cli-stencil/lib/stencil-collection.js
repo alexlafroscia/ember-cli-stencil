@@ -12,20 +12,6 @@ class StencilCollection {
     return this.pkg.name;
   }
 
-  get browser() {
-    return this.pkg.browser;
-  }
-
-  get namespace() {
-    return path.parse(this.browser).name;
-  }
-
-  get publicFilesDir() {
-    const { dir } = path.parse(path.join(this.path, this.browser));
-
-    return path.join(dir, this.namespace);
-  }
-
   get collection() {
     if (this[COLLECTION]) {
       return this[COLLECTION];

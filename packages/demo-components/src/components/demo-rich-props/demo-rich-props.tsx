@@ -1,15 +1,13 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop } from "@stencil/core";
 
 @Component({
-  tag: 'demo-rich-props',
+  tag: "demo-rich-props",
   shadow: true
 })
-export class DemoEventEmitter {
+export class DemoRichProps {
   @Prop() list: Array<string> = [];
 
   render() {
-    return (
-      <ul>{this.list.map(item => <li>{item}</li>)}</ul>
-    );
+    return <ul>{this.list.map(item => <li>{item}</li>)}</ul>;
   }
 }

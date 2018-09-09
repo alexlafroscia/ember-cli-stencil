@@ -2,14 +2,14 @@
   "name": "demo-components",
   "version": "0.3.0",
   "description": "Stencil Component Starter",
-  "main": "dist/demo.js",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "private": true,
   "files": [
     "dist/"
   ],
-  "browser": "dist/demo.js",
   "scripts": {
     "build": "stencil build",
     "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
@@ -17,7 +17,7 @@
     "start": "npm run dev"
   },
   "devDependencies": {
-    "@stencil/core": "0.7.7",
+    "@stencil/core": "^0.12.4",
     "@stencil/dev-server": "latest",
     "@stencil/utils": "latest"
   },
