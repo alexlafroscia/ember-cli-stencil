@@ -1,6 +1,7 @@
 # Error logs
 yarn-error.log
 lerna-debug.log
+/node_modules/
 
 # Ember addon readme
 packages/ember-cli-stencil/README.md
