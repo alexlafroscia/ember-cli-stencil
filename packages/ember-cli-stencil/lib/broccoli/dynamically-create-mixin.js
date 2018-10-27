@@ -13,7 +13,7 @@ module.exports = function(collections) {
     {},
     ...collections
       .map(collection => collection.allEvents)
-      .reduce((acc, events) => [...acc, ...events])
+      .reduce((acc, events) => [...acc, ...events], [])
       .map(({ event }) => ({ [event]: event }))
   );
 
