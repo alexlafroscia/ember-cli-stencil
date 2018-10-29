@@ -61,6 +61,7 @@ module('generating ember components', function(hooks) {
 
       const el = await find('demo-rich-props');
       const shadowRoot = await getShadowRoot(el);
+      await nextRAF();
 
       assert.equal(shadowRoot.textContent, 'foobar');
 
