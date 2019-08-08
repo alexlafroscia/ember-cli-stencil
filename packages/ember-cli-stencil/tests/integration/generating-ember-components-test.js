@@ -2,8 +2,8 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render, clearRender } from '@ember/test-helpers';
 import {
-  findInShadowRoot,
-  getShadowRoot
+  getShadowRoot,
+  waitUntilInShadowRoot
 } from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
@@ -83,7 +83,7 @@ module('generating ember components', function(hooks) {
       `);
 
       const el = await find('demo-event-emitter');
-      const button = await findInShadowRoot(el, 'button');
+      const button = await waitUntilInShadowRoot(el, 'button');
 
       await click(button);
 
@@ -98,7 +98,7 @@ module('generating ember components', function(hooks) {
       `);
 
       const el = await find('demo-event-emitter');
-      const button = await findInShadowRoot(el, 'button');
+      const button = await waitUntilInShadowRoot(el, 'button');
 
       await click(button);
 
