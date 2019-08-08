@@ -3,7 +3,6 @@
 const path = require('path');
 
 const MergeTree = require('broccoli-merge-trees');
-// const Funnel = require('broccoli-funnel');
 const writeFile = require('broccoli-file-creator');
 const debug = require('debug');
 
@@ -12,7 +11,7 @@ const customEventsMixin = require('./lib/broccoli/dynamically-create-mixin');
 const generateInitializer = require('./lib/generate-import-initializer');
 
 module.exports = {
-  name: 'ember-cli-stencil',
+  name: require('./package').name,
 
   allOptions() {
     return (
