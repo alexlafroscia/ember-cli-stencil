@@ -62,9 +62,14 @@ module.exports = {
         });
     } else {
       // ember-cli >= 3.4
-      let packages = this.parent._packageInfo.dependencyPackages;
-      parentDepsPackages = Object.keys(packages).map(key => {
-        let { realPath, pkg } = packages[key];
+      const dependencies = Object.assign(
+        {},
+        this.parent._packageInfo.dependencyPackages,
+        this.parent._packageInfo.devDependencyPackages
+      );
+      parentDepsPackages = Object.keys(dependencies).map(key => {
+        const { realPath, pkg } = dependencies[key];
+
         return { root: realPath, pkg };
       });
     }
