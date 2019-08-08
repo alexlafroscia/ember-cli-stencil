@@ -28,14 +28,14 @@
     "ember-auto-import": "^1.5.2",
     "ember-cli-babel": "^7.7.3",
     "ember-cli-htmlbars": "^3.0.1",
-    "lodash": "^4.17.10",
+    "lodash.camelcase": "^4.3.0",
     "theredoc": "^1.0.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
     "ava": "1.0.0-beta.8",
     "broccoli-asset-rev": "^3.0.0",
-    "demo-components": "^0.4.0",
+    "demo-components": "*",
     "ember-cli": "~3.10.0",
     "ember-cli-dependency-checker": "^3.1.0",
     "ember-cli-htmlbars-inline-precompile": "^2.1.0",

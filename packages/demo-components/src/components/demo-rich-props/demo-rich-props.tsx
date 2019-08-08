@@ -1,4 +1,4 @@
-import { Component, Prop } from "@stencil/core";
+import { Component, Prop, h } from "@stencil/core";
 
 @Component({
   tag: "demo-rich-props",
@@ -8,6 +8,12 @@ export class DemoRichProps {
   @Prop() list: Array<string> = [];
 
   render() {
-    return <ul>{this.list.map(item => <li>{item}</li>)}</ul>;
+    return (
+      <ul>
+        {this.list.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    );
   }
 }

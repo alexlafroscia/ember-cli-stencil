@@ -1,16 +1,24 @@
-const { camelCase } = require('lodash');
+'use strict';
+
+const camelCase = require('lodash.camelcase');
 const theredoc = require('theredoc');
 
 function generateInitializer(moduleNames) {
   const modules = moduleNames.map(module => ({
     name: module,
+    polyfillFunction: camelCase(`apply-polyfills-${module}`),
     importFunction: camelCase(`define-${module}`)
   }));
 
   const moduleImports = modules
     .map(
-      ({ name, importFunction }) =>
-        `import { defineCustomElements as ${importFunction} } from '${name}';`
+      ({ name, polyfillFunction, importFunction }) =>
+        theredoc`
+          import {
+            applyPolyfills as ${polyfillFunction},
+            defineCustomElements as ${importFunction}
+          } from '${name}/loader';
+        `
     )
     .reduce(
       (acc, importStatement) =>
@@ -18,13 +26,17 @@ function generateInitializer(moduleNames) {
       ''
     );
 
-  const defineComponents = modules
-    .map(module => module.importFunction)
-    .reduce(
-      (acc, importFunction) =>
-        acc + (acc === '' ? '' : '\n') + `${importFunction}(window);`,
-      ''
-    );
+  const defineComponents = modules.reduce(
+    (acc, { polyfillFunction, importFunction }) =>
+      acc +
+      (acc === '' ? '' : '\n') +
+      theredoc`
+        ${polyfillFunction}().then(function() {
+          ${importFunction}(window);
+        });
+      `,
+    ''
+  );
 
   const initializer = theredoc`
     export function initialize() {

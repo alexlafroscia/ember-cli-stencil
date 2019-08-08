@@ -4,18 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
   <title>Stencil Component Starter</title>
-  <script src="/build/demo.js"></script>
+
+  <script type="module" src="/build/demo-components.esm.js"></script>
+  <script nomodule src="/build/demo-components.js"></script>
 
 </head>
 <body>
-  <demo-event-emitter>
-    Click me!
-  </demo-event-emitter>
 
-  <script>
-    document.querySelector('demo-event-emitter').addEventListener('demoEvent', () => {
-      alert('Demo Event was received!');
-    });
-  </script>
+  <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+
 </body>
 </html>
