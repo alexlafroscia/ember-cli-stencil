@@ -41,6 +41,7 @@ module.exports = {
   },
 
   included() {
+    const logDiscovery = debug(`${this.name}:discovery`);
     this._super.included.apply(this, arguments);
 
     // Ensure that `ember-auto-import` can handle the dynamic imports
@@ -49,25 +50,38 @@ module.exports = {
     opts.babel.plugins = opts.babel.plugins || [];
     opts.babel.plugins.push(require('ember-auto-import/babel-plugin'));
 
-    // Find all Stencil collections in the dependencies
-    const logDiscovery = debug(`${this.name}:discovery`);
-    this.stencilCollections = this.getParentDependencies()
-      .map(dep => this.addonDiscovery.resolvePackage(this.parent.root, dep))
-      .reduce((acc, pathToDep) => {
-        const packagePath = path.join(pathToDep, 'package.json');
-        const pkg = require(packagePath);
+    let parentDepsPackages;
+    if (this.addonDiscovery) {
+      // ember-cli < 3.4
+      parentDepsPackages = this.getParentDependencies()
+        .map(dep => this.addonDiscovery.resolvePackage(this.parent.root, dep))
+        .map(pathToDep => {
+          return {
+            root: pathToDep,
+            pkg: require(path.join(pathToDep, 'package.json'))
+          };
+        });
+    } else {
+      // ember-cli >= 3.4
+      let packages = this.parent._packageInfo.dependencyPackages;
+      parentDepsPackages = Object.keys(packages).map(key => {
+        let { realPath, pkg } = packages[key];
+        return { root: realPath, pkg };
+      });
+    }
 
+    // Find all Stencil collections in the dependencies
+    this.stencilCollections = parentDepsPackages.reduce(
+      (acc, { root, pkg }) => {
         if (StencilCollection.looksLike(pkg)) {
-          logDiscovery(
-            'found Stencil collection %o at %o',
-            pkg.name,
-            pathToDep
-          );
-          acc.push(new StencilCollection(pkg, pathToDep));
+          logDiscovery('found Stencil collection %o at %o', pkg.name, root);
+          acc.push(new StencilCollection(pkg, root));
         }
 
         return acc;
-      }, []);
+      },
+      []
+    );
   },
 
   treeForAddon(tree) {
