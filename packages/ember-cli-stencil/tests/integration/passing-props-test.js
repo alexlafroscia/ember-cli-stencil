@@ -2,9 +2,8 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render } from '@ember/test-helpers';
 import {
-  findInShadowRoot,
   getShadowRoot,
-  nextRAF
+  waitUntilInShadowRoot
 } from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
@@ -18,7 +17,7 @@ module('passing props', function(hooks) {
     const el = await find('demo-passing-props');
     const shadowRoot = await getShadowRoot(el);
 
-    assert.equal(shadowRoot.textContent, 'Foobar');
+    await assert.convergeOn(() => shadowRoot.textContent === 'Foobar');
   });
 
   test('passing a dynamic property into a component', async function(assert) {
@@ -30,12 +29,17 @@ module('passing props', function(hooks) {
     const el = await find('demo-passing-props');
     const shadowRoot = await getShadowRoot(el);
 
-    assert.equal(shadowRoot.textContent, 'foo', 'Has the initial text');
+    await assert.convergeOn(
+      () => shadowRoot.textContent === 'foo',
+      'Has the initial text'
+    );
 
     this.set('text', 'bar');
-    await nextRAF();
 
-    assert.equal(shadowRoot.textContent, 'bar', 'Has the updated text value');
+    await assert.convergeOn(
+      () => shadowRoot.textContent === 'bar',
+      'Has the updated text value'
+    );
   });
 
   test('passing a function as a property', async function(assert) {
@@ -46,7 +50,7 @@ module('passing props', function(hooks) {
     `);
 
     const el = await find('demo-passing-props');
-    const button = await findInShadowRoot(el, 'button');
+    const button = await waitUntilInShadowRoot(el, 'button');
 
     await click(button);
 

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render } from '@ember/test-helpers';
-import { findInShadowRoot } from 'ember-cli-stencil/test-support';
+import { waitUntilInShadowRoot } from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
 
@@ -19,7 +19,7 @@ module('custom events', function(hooks) {
     `);
 
     const eventEmitter = await find('demo-event-emitter');
-    const button = await findInShadowRoot(eventEmitter, 'button');
+    const button = await waitUntilInShadowRoot(eventEmitter, 'button');
 
     await click(button);
 
