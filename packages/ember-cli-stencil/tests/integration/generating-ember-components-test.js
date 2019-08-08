@@ -3,8 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, find, render, clearRender } from '@ember/test-helpers';
 import {
   findInShadowRoot,
-  getShadowRoot,
-  nextRAF
+  getShadowRoot
 } from 'ember-cli-stencil/test-support';
 import hbs from 'htmlbars-inline-precompile';
 import td from 'testdouble';
@@ -44,12 +43,17 @@ module('generating ember components', function(hooks) {
       const el = await find('demo-passing-props');
       const shadowRoot = await getShadowRoot(el);
 
-      assert.equal(shadowRoot.textContent, 'foo', 'Has the initial text');
+      await assert.convergeOn(
+        () => shadowRoot.textContent === 'foo',
+        'Has the initial text'
+      );
 
       this.set('text', 'bar');
-      await nextRAF();
 
-      assert.equal(shadowRoot.textContent, 'bar', 'Has the updated text value');
+      await assert.convergeOn(
+        () => shadowRoot.textContent === 'bar',
+        'Has the updated text value'
+      );
     });
 
     test('binding complex props', async function(assert) {
@@ -62,12 +66,11 @@ module('generating ember components', function(hooks) {
       const el = await find('demo-rich-props');
       const shadowRoot = await getShadowRoot(el);
 
-      assert.equal(shadowRoot.textContent, 'foobar');
+      await assert.convergeOn(() => shadowRoot.textContent === 'foobar');
 
       this.set('list', ['foo', 'bar', 'baz']);
-      await nextRAF();
 
-      assert.equal(shadowRoot.textContent, 'foobarbaz');
+      await assert.convergeOn(() => shadowRoot.textContent === 'foobarbaz');
     });
   });
 
