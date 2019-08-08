@@ -7,6 +7,6 @@
 
 <h2>Binding to an Event</h2>
 
-<demo-event-emitter {{action 'sayHello' on='demoEvent'}}>
+<demo-event-emitter {{on 'demoEvent' this.sayHello}}>
   Action bound to an event
 </demo-event-emitter>
