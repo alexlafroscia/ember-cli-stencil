@@ -3,16 +3,14 @@
 const path = require('path');
 
 const MergeTree = require('broccoli-merge-trees');
-// const Funnel = require('broccoli-funnel');
 const writeFile = require('broccoli-file-creator');
 const debug = require('debug');
 
 const StencilCollection = require('./lib/stencil-collection');
-const customEventsMixin = require('./lib/broccoli/dynamically-create-mixin');
 const generateInitializer = require('./lib/generate-import-initializer');
 
 module.exports = {
-  name: 'ember-cli-stencil',
+  name: require('./package').name,
 
   allOptions() {
     return (
@@ -25,9 +23,7 @@ module.exports = {
 
     return Object.assign(
       {
-        autoImportCollections: true,
-        generateWrapperComponents: true,
-        generateCustomEventsMixin: true
+        autoImportCollections: true
       },
       config['ember-cli-stencil']
     );
@@ -63,9 +59,14 @@ module.exports = {
         });
     } else {
       // ember-cli >= 3.4
-      let packages = this.parent._packageInfo.dependencyPackages;
-      parentDepsPackages = Object.keys(packages).map(key => {
-        let { realPath, pkg } = packages[key];
+      const dependencies = Object.assign(
+        {},
+        this.parent._packageInfo.dependencyPackages,
+        this.parent._packageInfo.devDependencyPackages
+      );
+      parentDepsPackages = Object.keys(dependencies).map(key => {
+        const { realPath, pkg } = dependencies[key];
+
         return { root: realPath, pkg };
       });
     }
@@ -84,21 +85,6 @@ module.exports = {
     );
   },
 
-  treeForAddon(tree) {
-    const config = this.addonOptions();
-
-    if (config.generateCustomEventsMixin) {
-      const merged = new MergeTree([
-        tree,
-        customEventsMixin(this.stencilCollections)
-      ]);
-
-      return this._super.treeForAddon.call(this, merged);
-    }
-
-    return tree;
-  },
-
   treeForApp(tree) {
     const log = debug(`${this.name}:app`);
     const config = this.addonOptions();
@@ -115,40 +101,15 @@ module.exports = {
         )
       );
 
-      tree = MergeTree([tree, importedCollectionsTree]);
+      const trees = [importedCollectionsTree];
+
+      if (tree) {
+        trees.push(tree);
+      }
+
+      tree = MergeTree(trees);
     } else {
       log('configuration disabled auto-importing stencil collections');
-    }
-
-    if (config.generateWrapperComponents) {
-      log('configuration enabled generating wrapper components');
-
-      const generatedComponents = this.stencilCollections.reduce((acc, dep) => {
-        return [
-          ...acc,
-          ...dep.collection.components.map(component => {
-            log('generating component %o from %o', component.tag, dep.name);
-
-            const props = component.props;
-            const events = component.events;
-
-            return writeFile(
-              `components/${component.tag}.js`,
-              `
-              import generateComponent from 'ember-cli-stencil/-private/generate-component';
-
-              export default generateComponent('${
-                component.tag
-              }', ${JSON.stringify(props)}, ${JSON.stringify(events)});
-            `
-            );
-          })
-        ];
-      }, []);
-
-      tree = MergeTree([tree, ...generatedComponents]);
-    } else {
-      log('configuration disabled generating wrapper components');
     }
 
     return tree;

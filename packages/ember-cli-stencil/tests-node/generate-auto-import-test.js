@@ -9,9 +9,14 @@ test('generating the initializer for a single collection', t => {
   t.is(
     generated,
     theredoc`
-      import { defineCustomElements as defineDemoComponents } from 'demo-components';
+      import {
+        applyPolyfills as applyPolyfillsDemoComponents,
+        defineCustomElements as defineDemoComponents
+      } from 'demo-components/loader';
 
-      defineDemoComponents(window);
+      applyPolyfillsDemoComponents().then(function() {
+        defineDemoComponents(window);
+      });
 
       export function initialize() {
         // No-op
@@ -33,11 +38,21 @@ test('generating the initializer for multiple collections', t => {
   t.is(
     generated,
     theredoc`
-      import { defineCustomElements as defineDemoComponents } from 'demo-components';
-      import { defineCustomElements as defineSomeOtherComponents } from 'some-other-components';
+      import {
+        applyPolyfills as applyPolyfillsDemoComponents,
+        defineCustomElements as defineDemoComponents
+      } from 'demo-components/loader';
+      import {
+        applyPolyfills as applyPolyfillsSomeOtherComponents,
+        defineCustomElements as defineSomeOtherComponents
+      } from 'some-other-components/loader';
 
-      defineDemoComponents(window);
-      defineSomeOtherComponents(window);
+      applyPolyfillsDemoComponents().then(function() {
+        defineDemoComponents(window);
+      });
+      applyPolyfillsSomeOtherComponents().then(function() {
+        defineSomeOtherComponents(window);
+      });
 
       export function initialize() {
         // No-op

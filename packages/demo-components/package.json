@@ -1,34 +1,24 @@
 {
   "name": "demo-components",
-  "version": "0.4.0",
+  "version": "0.0.1",
   "description": "Stencil Component Starter",
   "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
-  "private": true,
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/demo-components/demo-components.js",
   "files": [
-    "dist/"
+    "dist/",
+    "loader/"
   ],
   "scripts": {
-    "build": "stencil build",
-    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
-    "serve": "stencil-dev-server",
-    "start": "npm run dev"
+    "build": "stencil build"
   },
   "devDependencies": {
-    "@stencil/core": "^0.12.4",
-    "@stencil/dev-server": "latest",
-    "@stencil/utils": "latest"
+    "@stencil/core": "^1.0.7"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ionic-team/stencil-component-starter.git"
-  },
-  "author": "Ionic Team",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ionic-team/stencil"
-  },
-  "homepage": "https://github.com/ionic-team/stencil"
+  "license": "MIT"
 }

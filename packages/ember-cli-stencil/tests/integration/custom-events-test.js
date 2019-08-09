@@ -13,7 +13,7 @@ module('custom events', function(hooks) {
     this.set('customEventHandler', customEventHandler);
 
     await render(hbs`
-      <demo-event-emitter {{action (action customEventHandler) on='demoEvent'}}>
+      <demo-event-emitter {{on 'demoEvent' this.customEventHandler}}>
         Send Event
       </demo-event-emitter>
     `);
@@ -23,6 +23,6 @@ module('custom events', function(hooks) {
 
     await click(button);
 
-    assert.verify(customEventHandler());
+    assert.verify(customEventHandler(td.matchers.isA(Event)));
   });
 });
