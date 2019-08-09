@@ -10,6 +10,7 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/demo-components/demo-components.js",
+  "private": true,
   "files": [
     "dist/",
     "loader/"
