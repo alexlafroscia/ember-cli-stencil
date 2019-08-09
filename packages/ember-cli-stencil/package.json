@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-stencil",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Addon for working with Stencil.js components in Ember",
   "keywords": [
     "ember-addon"
