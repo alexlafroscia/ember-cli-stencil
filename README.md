@@ -13,10 +13,12 @@ Stencil provides a great, opinionated process for defining Web Components (custo
 Start by installing your Stencil components as `npm` modules, as described in the [distribution instructions][distribution] in the guide. Then, install this addon:
 
 ```bash
-ember install ember-cli-stencil
+ember install ember-cli-stencil ember-auto-import
 ```
 
 That's it! Your Stencil components will automatically be detected by the addon and pulled into your application.
+
+**Note:** `ember-auto-import` is _required_ for this addon to work correctly.
 
 ## Usage
 
