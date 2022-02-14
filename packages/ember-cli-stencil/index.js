@@ -44,7 +44,7 @@ module.exports = {
     const opts = this.allOptions();
     opts.babel = opts.babel || {};
     opts.babel.plugins = opts.babel.plugins || [];
-    opts.babel.plugins.push(require('ember-auto-import/babel-plugin'));
+    opts.babel.plugins.push(require.resolve('ember-auto-import/babel-plugin'));
 
     let parentDepsPackages;
     if (this.addonDiscovery) {

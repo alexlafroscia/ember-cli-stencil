@@ -3,7 +3,12 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  let app = new EmberAddon(defaults, {});
+  let app = new EmberAddon(defaults, {
+    'ember-cli-babel': {
+      // Make sure this addon doesn't break Babel parallelization in downstream builds
+      throwUnlessParallelizable: true
+    }
+  });
 
   /*
     This build file specifies the options for the dummy test app of this
